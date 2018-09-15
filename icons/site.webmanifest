@@ -3,8 +3,13 @@
     "short_name": "JKVM122",
     "icons": [
         {
-            "src": "/icons/android-chrome-72x72.png",
-            "sizes": "72x72",
+            "src": "/icons/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icons/android-chrome-256x256.png",
+            "sizes": "256x256",
             "type": "image/png"
         }
     ],
