@@ -11,9 +11,7 @@ const version = 'v2';
 var cacheName = 'sheets-cache';
 var filesToCache = [
   '/index.html',
-  '/history.html',
   '/style.css',
-  '/history-javascript.js',
   '/javascript.js',
   '/icons/manifest.json',
   'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',

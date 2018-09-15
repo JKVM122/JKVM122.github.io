@@ -49,51 +49,6 @@ var req = indexedDB.open('spreadsheets', 4)
 
 req.onerror = console.error;
 
-req.onsuccess = (event) => {
-
-    var db = event.target.result;
-    var transactions = db.transaction(['transactions'], 'readwrite').objectStore('transactions');
-    getData(transactions, t => t.isSync === false).then(data => {
-        var l = data.length;
-        if (l > 0) {
-            $('#indicationValue')[0].innerHTML = l;
-            $('#indication').show();
-        }
-    });
-
-    var data = db.transaction(['data'], 'readwrite').objectStore('data');
-
-    getData(data, t => true).then(data => {
-        var l = data.length;
-        if (l > 0) {
-            var json = data[0];
-            $('#predictedValue')[0].innerHTML = json.predicted;
-            $('#totalValue')[0].innerHTML = json.total;
-            $('#regularAverageValue')[0].innerHTML = json.regularAverage;
-            $('#onetimeAverageValue')[0].innerHTML = json.onetimeAverage;
-        }
-    });
-};
-
-function getData(objectStore, predicate) {
-    return new Promise((resolve, reject) => {
-        var t = [];
-        function onsuccess(evt) {
-            var cursor = evt.target.result;
-
-            if (cursor) {
-                if (predicate(cursor.value)) {
-                    t.push(cursor.value);
-                }
-                cursor.continue();
-            } else {
-                resolve(t);
-            }
-        }
-        objectStore.openCursor().onsuccess = onsuccess;
-    });
-}
-
 if('serviceWorker' in navigator) {
     navigator.serviceWorker
         .register("sw.js")
@@ -141,11 +96,7 @@ function sendData(){
 
         operation.onsuccess = () => {
             navigator.serviceWorker.ready.then(sw => {
-                return sw.sync.register('sync-transactions').then((evt) => {
-                    $('#indicationValue')[0].innerHTML = Number($('#indicationValue')[0].innerHTML) + 1;
-                    $('#indication').show();
-                    return evt;
-                });
+                return sw.sync.register('sync-transactions');
             });
         };      
     };    
