@@ -98,14 +98,14 @@ self.addEventListener('sync', event => {
            
                                 var date = r.date;
 
-                                var url = "https://script.google.com/macros/s/AKfycbz0mNqV93ijapjGYQnDfB8ruv4IT8xALb_ebUk8OlbO1ld3rRUV/exec?Run=" + run + "&Pushups=" + pushups + "&Situps=" + situps + "&Date=" + date;
+                                var url = "https://script.google.com/macros/s/AKfycbz0mNqV93ijapjGYQnDfB8ruv4IT8xALb_ebUk8OlbO1ld3rRUV/exec?Run=" + Run + "&Pushups=" + Pushups + "&Situps=" + Situps + "&Date=" + date;
 
                                 fetch(url).then(res => {
                                     if (res.ok) {
                                         r.isSync = true;
                                         var tran = db.transaction(['transactions'], 'readwrite').objectStore('transactions').put(r);
                                         tran.onsuccess = () => {
-                                           res.text().then(data => send_message_to_all_clients(data));
+                                          
                                         };
                                         
                                         tran.onerror = (e) => { console.error(e)};
